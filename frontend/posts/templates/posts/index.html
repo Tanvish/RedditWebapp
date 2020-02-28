@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Subreddits</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.uikit.min.css">
+
+
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.uikit.min.js"></script>
+      <script>
+        $(document).ready(function() {
+            $('#post_table').DataTable( {
+                scrollY:        '50vh',
+            } );
+        } );
+      </script>
+
+</head>
+<body>
+    <div class="w-100" style="background: linear-gradient(to left, #f953c6, #b91d73); padding-top: 20px;">
+        <div class="container">
+            <form method="post" class="form-inline">
+                <div class="form-group w-100">
+                    <div class="input-group row w-100" ">
+                        {% csrf_token %}
+                        <div class="col-10 w-100">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="col-2 w-100 ">
+                            <span class = "input-group-btn">
+                                    <button id = 'search' type="submit" class="btn btn-outline-light waves-effect"><i class="fas fa-search"></i> Search</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class = "container shadow-lg p-3 mb-5 bg-white rounded" style = "margin-top:20px;">
+        {% if name == '' %}
+            <div class="flex-box" align="center">
+            <p>Welcome to my subreddit simulation. Please enter a subreddit that you can think of to proceed.</p>
+            <img src="https://media.giphy.com/media/9JrkkDoJuU0FbdbUZU/giphy.gif" align="center">
+        </div>
+        {% elif hot_python %}
+            <div class="text">
+                {% if name %}
+                    <p>Now showing: {{ name }}</p>
+                {% endif %}
+            </div>
+            <table id="post_table" class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Upvote</th>
+                        <th>Author</th>
+                        <th>NSFW</th>
+                        <th>Post</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for element in hot_python %}
+                <tr>
+                    <td>{{ element.score }}</td>
+                    <td>{{ element.author }}</td>
+                    {% if element.over_18 %}
+                        <td>Yes</td>
+                    {% else %}
+                        <td>No</td>
+                    {% endif %}
+                    <td><a href="{{ element.url }}" style="text-decoration: none">{{ element.title }}</a></td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <div class="flex-box" align="center">
+            <p>Please enter a valid subreddit in the search bar above.</p>
+            <img src="https://i.pinimg.com/originals/87/ce/c5/87cec586bcd426162d7ab9b2fdf44209.gif" align="center">
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

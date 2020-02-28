@@ -41,9 +41,3 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-'''def index(request):
-    template = loader.get_template('posts/index.html')
-    form = NameForm()
-    return HttpResponse(template.render({'form': form}, request))
-'''
-

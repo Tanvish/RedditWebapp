@@ -15,7 +15,7 @@
       <script>
         $(document).ready(function() {
             $('#post_table').DataTable( {
-                scrollY:        '50vh',
+                scrollY:        '45vh',
             } );
         } );
       </script>
@@ -26,7 +26,7 @@
         <div class="container">
             <form method="post" class="form-inline">
                 <div class="form-group w-100">
-                    <div class="input-group row w-100" ">
+                    <div class="input-group row w-100">
                         {% csrf_token %}
                         <div class="col-10 w-100">
                             {{ form.as_p }}
@@ -42,7 +42,7 @@
         </div>
 
     </div>
-    <div class = "container shadow-lg p-3 mb-5 bg-white rounded" style = "margin-top:20px;">
+    <div class = "container shadow-lg p-3 mb-5 bg-white rounded" style = "margin-top:5vh;">
         {% if name == '' %}
             <div class="flex-box" align="center">
             <p>Welcome to my subreddit simulation. Please enter a subreddit that you can think of to proceed.</p>
@@ -73,7 +73,7 @@
                     {% else %}
                         <td>No</td>
                     {% endif %}
-                    <td><a href="{{ element.url }}" style="text-decoration: none">{{ element.title }}</a></td>
+                    <td><a href="{{ element.url }}" target="_blank" style="text-decoration: none">{{ element.title }}</a></td>
                 </tr>
             {% endfor %}
                 </tbody>

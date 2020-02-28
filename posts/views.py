@@ -15,11 +15,7 @@ def sub_exists(sub, reddit):
     exists = True
     try:
         reddit.subreddit(sub)._fetch()
-    except Forbidden:
-        exists = False
-    except NotFound:
-        exists = False
-    except BadRequest:
+    except:
         exists = False
     return exists
 
